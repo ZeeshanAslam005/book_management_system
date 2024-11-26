@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
       :recoverable, :rememberable, :validatable,
-      :two_factor_authenticatable, # MFA
       :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
   ROLES = %w[admin manager customer].freeze
