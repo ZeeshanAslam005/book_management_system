@@ -1,10 +1,10 @@
 class Api::V1::BookstoresController < Api::V1::BaseController
-  include Swagger::Docs::Methods
   swagger_controller :bookstores, "Bookstore Management"
 
   swagger_api :index do
     summary "Fetches all bookstores"
     response :ok, "Success", :Bookstore
+    response :unauthorized
   end
 
   swagger_api :show do

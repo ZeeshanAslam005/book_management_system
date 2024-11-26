@@ -1,4 +1,4 @@
-class Api::V1::BooksController < Api::V1::BaseController
+class Api::V1::BooksController < Api::V1::BaseController  
   swagger_controller :books, "Book Management"
 
   swagger_api :index do

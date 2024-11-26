@@ -1,4 +1,6 @@
 class Book < ActiveRecord::Base
+  include Swagger::Docs::Methods
+  
   swagger_model :Book do
     property :id, :integer, :required, "Book ID"
     property :title, :string, :required, "Book Title"
