@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_create :generate_authentication_token
+
   devise :database_authenticatable, :registerable,
       :recoverable, :rememberable, :validatable,
       :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
@@ -18,4 +20,11 @@ class User < ActiveRecord::Base
   def customer?
     role == 'customer'
   end
+
+  private
+
+  def generate_authentication_token
+    self.authentication_token = SecureRandom.hex(20)
+  end
 end
+

@@ -29,6 +29,9 @@ gem 'pundit'
 gem 'devise-jwt'
 gem 'audited'
 gem 'dotenv-rails'
+gem 'swagger-docs', '~> 0.1.9'
+gem 'rack-cors', '~> 0.4.0'
+gem 'kaminari', '~> 0.16.3' # For pagination
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
