@@ -24,6 +24,11 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'loofah', '2.9.0'          # Last version compatible with older Ruby versions
 gem 'nokogiri', '< 1.11.0'     # Use Nokogiri versions prior to 1.11
+gem 'devise'
+gem 'pundit'
+gem 'devise-jwt'
+gem 'audited'
+gem 'dotenv-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

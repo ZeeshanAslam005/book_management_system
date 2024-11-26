@@ -1,9 +1,21 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   include Pundit
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  before_action :authenticate_user!
+
+  def after_sign_in_path_for(resource)
+    case resource.role
+    when 'admin'
+      admin_dashboard_index_path
+    when 'manager'
+      manager_dashboard_index_path
+    when 'customer'
+      customer_dashboard_index_path
+    else
+      root_path
+    end
+  end
 
   private
 
