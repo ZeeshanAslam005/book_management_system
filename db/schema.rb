@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20241125180510) do
+ActiveRecord::Schema.define(version: 20241126091435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,28 @@ ActiveRecord::Schema.define(version: 20241125180510) do
   add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
   add_index "audits", ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
   add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
+
+  create_table "books", force: :cascade do |t|
+    t.string   "title",                                   null: false
+    t.string   "author",                                  null: false
+    t.decimal  "price",          precision: 10, scale: 2, null: false
+    t.integer  "bookstore_id"
+    t.date     "published_date"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "books", ["bookstore_id"], name: "index_books_on_bookstore_id", using: :btree
+
+  create_table "bookstores", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "location"
+    t.integer  "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bookstores", ["manager_id"], name: "index_bookstores_on_manager_id", using: :btree
 
   create_table "jwt_denylists", force: :cascade do |t|
     t.datetime "created_at", null: false
