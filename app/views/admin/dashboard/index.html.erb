@@ -1,0 +1,6 @@
+<h1>Admin Dashboard</h1>
+<ul>
+  <li>Total Bookstores: <%= @metrics[:total_bookstores] %></li>
+  <li>Total Books: <%= @metrics[:total_books] %></li>
+  <li>Total Revenue: <%= number_to_currency(@metrics[:total_revenue]) %></li>
+</ul>

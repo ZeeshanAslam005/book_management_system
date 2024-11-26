@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BookManagementSystem</title>
+  <title>Bookstore Management</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
-
-<%= yield %>
-
+  <nav>
+    <% if user_signed_in? %>
+      <p>Welcome, <%= current_user.email %></p>
+      <% if current_user.admin? %>
+        <a href="<%= admin_dashboard_index_path %>">Admin Dashboard</a>
+      <% elsif current_user.manager? %>
+        <a href="<%= manager_dashboard_index_path %>">Manager Dashboard</a>
+      <% elsif current_user.customer? %>
+        <a href="<%= customer_dashboard_index_path %>">Customer Dashboard</a>
+      <% end %>
+      <a href="<%= destroy_user_session_path %>" data-method="delete">Logout</a>
+    <% else %>
+      <a href="<%= new_user_session_path %>">Login</a>
+      <a href="<%= new_user_registration_path %>">Register</a>
+    <% end %>
+  </nav>
+  <%= yield %>
 </body>
 </html>

@@ -1,0 +1,14 @@
+<h1>Customer Dashboard</h1>
+<h2>Your Orders</h2>
+<% @orders.each do |order| %>
+  <div>
+    <h3>Order #: <%= order.id %></h3>
+    <p>Date: <%= order.created_at.strftime('%B %d, %Y') %></p>
+    <p>Total Price: <%= number_to_currency(order.total_price) %></p>
+    <ul>
+      <% order.books.each do |book| %>
+        <li><%= book.title %> by <%= book.author %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
