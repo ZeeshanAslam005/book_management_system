@@ -1,0 +1,10 @@
+<h1>Monthly Sales Report</h1>
+<p>Dear <%= @bookstore.manager.name %>,</p>
+<p>Here is the sales report for your bookstore, <%= @bookstore.name %>, for the period <%= @report_data[:start_date].strftime('%B %d, %Y') %> to <%= @report_data[:end_date].strftime('%B %d, %Y') %>:</p>
+
+<ul>
+  <li>Total Sales: <%= number_to_currency(@report_data[:total_sales]) %></li>
+  <li>Total Orders: <%= @report_data[:total_orders] %></li>
+</ul>
+
+<p>Thank you for your continued efforts!</p>

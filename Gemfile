@@ -30,11 +30,14 @@ gem 'devise-jwt'
 gem 'audited'
 gem 'dotenv-rails'
 gem 'rack-cors', '~> 0.4.0'
-gem 'kaminari', '~> 0.16.3' # For pagination
+gem 'kaminari', '~> 0.16.3'
 gem 'grape', '~> 0.19.2'
 gem 'grape-swagger', '~> 0.20.3'
 gem 'grape-swagger-rails'
 gem 'ransack', '~> 1.8.2'
+gem 'sidekiq'
+gem 'redis'
+gem 'whenever', require: false
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
