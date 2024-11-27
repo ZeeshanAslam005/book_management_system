@@ -13,12 +13,8 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:index]
   end
 
-  namespace :api do
-    namespace :v1 do
-      resources :bookstores, only: [:index, :show]
-      resources :books, only: [:index, :show]
-    end
-  end
+  mount API::Base => '/'
+  mount GrapeSwaggerRails::Engine => '/swagger', constraints: proc { !Rails.env.production? }
 
   root to: 'home#index'
 end

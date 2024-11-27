@@ -62,9 +62,11 @@ ActiveRecord::Schema.define(version: 20241126094315) do
   add_index "bookstores", ["manager_id"], name: "index_bookstores_on_manager_id", using: :btree
 
   create_table "jwt_denylists", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "jti", null: false
+    t.datetime "exp", null: false
   end
+
+  add_index "jwt_denylists", ["jti"], name: "index_jwt_denylists_on_jti", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",         null: false

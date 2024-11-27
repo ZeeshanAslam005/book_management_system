@@ -2,8 +2,9 @@ class User < ActiveRecord::Base
   before_create :generate_authentication_token
 
   devise :database_authenticatable, :registerable,
-      :recoverable, :rememberable, :validatable,
-      :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
+         :recoverable, :rememberable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
+
 
   ROLES = %w[admin manager customer].freeze
 
