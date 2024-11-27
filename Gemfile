@@ -29,10 +29,11 @@ gem 'pundit'
 gem 'devise-jwt'
 gem 'audited'
 gem 'dotenv-rails'
-gem 'swagger-docs', '~> 0.1.9'
 gem 'rack-cors', '~> 0.4.0'
 gem 'kaminari', '~> 0.16.3' # For pagination
-
+gem 'grape', '~> 0.19.2'
+gem 'grape-swagger', '~> 0.20.3'
+gem 'grape-swagger-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -45,6 +46,7 @@ gem 'kaminari', '~> 0.16.3' # For pagination
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.8.2'
 end
 
 group :development do
