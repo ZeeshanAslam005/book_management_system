@@ -4,6 +4,7 @@ class Bookstore < ActiveRecord::Base
   belongs_to :manager, class_name: "User"
   
   has_many :books, dependent: :destroy
+  has_many :orders, through: :books
   
   validates :manager, presence: false
   validates :name, presence: true

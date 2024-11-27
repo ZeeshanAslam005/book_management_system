@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20241126094315) do
+ActiveRecord::Schema.define(version: 20241127164313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 20241126094315) do
   end
 
   add_index "jwt_denylists", ["jti"], name: "index_jwt_denylists_on_jti", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",                              null: false
+    t.integer  "book_id",                              null: false
+    t.integer  "quantity",                             null: false
+    t.decimal  "total_price", precision: 10, scale: 2, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "orders", ["book_id"], name: "index_orders_on_book_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",         null: false
