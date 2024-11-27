@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :books, only: [:index]
+  resources :bookstores, only: [:index]
 
   namespace :admin do
     resources :dashboard, only: [:index]

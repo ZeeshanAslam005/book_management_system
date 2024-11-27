@@ -1,0 +1,34 @@
+<h1>Bookstores</h1>
+
+<%= search_form_for @q, url: bookstores_path, method: :get do |f| %>
+  <div>
+    <%= f.label :name_cont, "Name Contains" %>
+    <%= f.text_field :name_cont, placeholder: "Search by Name" %>
+  </div>
+  <div>
+    <%= f.label :location_cont, "Location Contains" %>
+    <%= f.text_field :location_cont, placeholder: "Search by Location" %>
+  </div>
+  <div>
+    <%= f.submit "Search", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookstores.each do |bookstore| %>
+      <tr>
+        <td><%= bookstore.name %></td>
+        <td><%= bookstore.location %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @bookstores %>

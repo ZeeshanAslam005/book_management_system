@@ -1,0 +1,46 @@
+<h1>Books</h1>
+
+<%= search_form_for @q, url: books_path, method: :get do |f| %>
+  <div>
+    <%= f.label :title_cont, "Title Contains" %>
+    <%= f.text_field :title_cont, placeholder: "Search by Title" %>
+  </div>
+  <div>
+    <%= f.label :author_cont, "Author Contains" %>
+    <%= f.text_field :author_cont, placeholder: "Search by Author" %>
+  </div>
+  <div>
+    <%= f.label :price_gteq, "Minimum Price" %>
+    <%= f.number_field :price_gteq, step: 0.01 %>
+  </div>
+  <div>
+    <%= f.label :price_lteq, "Maximum Price" %>
+    <%= f.number_field :price_lteq, step: 0.01 %>
+  </div>
+  <div>
+    <%= f.submit "Search", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Price</th>
+      <th>Bookstore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= number_to_currency(book.price) %></td>
+        <td><%= book.bookstore&.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @books %>
