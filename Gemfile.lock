@@ -49,6 +49,7 @@ GEM
       debug_inspector (>= 1.2.0)
     builder (3.3.0)
     byebug (11.0.1)
+    chartkick (3.4.2)
     chronic (0.10.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -276,6 +277,7 @@ PLATFORMS
 DEPENDENCIES
   audited
   byebug
+  chartkick
   coffee-rails (~> 4.1.0)
   devise
   devise-jwt

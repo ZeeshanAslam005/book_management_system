@@ -1,6 +1,39 @@
 <h1>Admin Dashboard</h1>
-<ul>
-  <li>Total Bookstores: <%= @metrics[:total_bookstores] %></li>
-  <li>Total Books: <%= @metrics[:total_books] %></li>
-  <li>Total Revenue: <%= number_to_currency(@metrics[:total_revenue]) %></li>
-</ul>
+
+<div class="metrics">
+  <div class="metric-box">
+    <h2>Total Bookstores</h2>
+    <p><%= @total_bookstores %></p>
+  </div>
+
+  <div class="metric-box">
+    <h2>Total Books</h2>
+    <p><%= @total_books %></p>
+  </div>
+
+  <div class="metric-box">
+    <h2>Total Revenue</h2>
+    <p><%= number_to_currency(@total_revenue) %></p>
+  </div>
+</div>
+
+<h2>Monthly Revenue Trends</h2>
+<%= line_chart @monthly_revenue, xtitle: "Month", ytitle: "Revenue", format: :currency %>
+
+<h2>Best Performing Bookstores</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bookstore Name</th>
+      <th>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @best_performing_bookstores.each do |(id, name), revenue| %>
+      <tr>
+        <td><%= name %></td>
+        <td><%= number_to_currency(revenue) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

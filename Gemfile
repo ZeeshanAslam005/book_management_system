@@ -38,6 +38,7 @@ gem 'ransack', '~> 1.8.2'
 gem 'sidekiq'
 gem 'redis'
 gem 'whenever', require: false
+gem 'chartkick'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
