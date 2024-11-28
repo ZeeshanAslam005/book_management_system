@@ -1,0 +1,23 @@
+<h1>Edit Bookstore</h1>
+
+<%= form_with(model: @bookstore, local: true) do |f| %>
+  <div>
+    <%= f.label :name, "Name" %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :location, "Location" %>
+    <%= f.text_field :location %>
+  </div>
+  <% if current_user&.admin? %>
+    <div>
+      <%= f.label :manager_id, "Manager" %>
+      <%= f.collection_select :manager_id, User.where(role: 'manager'), :id, :email, prompt: "Select a Manager" %>
+    </div>
+  <% end %>
+  <div>
+    <%= f.submit "Update Bookstore", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Bookstores', bookstores_path, class: 'btn btn-secondary' %>

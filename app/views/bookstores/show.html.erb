@@ -1,0 +1,13 @@
+<h1>Bookstore Details</h1>
+
+<p><strong>Name:</strong> <%= @bookstore.name %></p>
+<p><strong>Location:</strong> <%= @bookstore.location %></p>
+<% if current_user&.admin? %>
+  <p><strong>Manager:</strong> <%= @bookstore.manager&.email %></p>
+<% end %>
+
+<%= link_to 'Back to Bookstores', bookstores_path, class: 'btn btn-secondary' %>
+<% if current_user&.admin? || current_user&.manager? %>
+  <%= link_to 'Edit Bookstore', edit_bookstore_path(@bookstore), class: 'btn btn-primary' %>
+  <%= link_to 'Delete Bookstore', @bookstore, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<% end %>

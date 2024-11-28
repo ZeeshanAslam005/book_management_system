@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :books, only: [:index]
-  resources :bookstores, only: [:index]
+  resources :books
+  resources :bookstores
 
   namespace :admin do
     resources :dashboard, only: [:index]
@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   namespace :customer do
     resources :dashboard, only: [:index]
   end
+
+  # Added a route for assigning books to managers (optional, if required)
+  post 'assign_books_to_manager', to: 'books#assign_to_manager'
 
   mount API::Base => '/'
   mount GrapeSwaggerRails::Engine => '/swagger', constraints: proc { !Rails.env.production? }

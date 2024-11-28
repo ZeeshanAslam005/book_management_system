@@ -1,5 +1,7 @@
 class Book < ActiveRecord::Base  
   belongs_to :bookstore
+  belongs_to :manager, class_name: 'User', required: false
+
   has_many :orders, dependent: :destroy
 
   validates :title, :author, :price, presence: true

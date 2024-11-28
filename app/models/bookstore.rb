@@ -1,13 +1,13 @@
 class Bookstore < ActiveRecord::Base
   audited
 
-  belongs_to :manager, class_name: "User"
-  
+  belongs_to :manager, class_name: 'User', foreign_key: 'manager_id'
+
   has_many :books, dependent: :destroy
   has_many :orders, through: :books
   
   validates :manager, presence: false
-  validates :name, presence: true
+  validates :name, :location, presence: true
 
   scope :best_performing, ->(limit = 5) {
     joins(:orders)
