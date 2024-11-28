@@ -1,0 +1,19 @@
+<%= form_for @bookstore do |f| %>
+  <div>
+    <%= f.label :name, "Name" %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :location, "Location" %>
+    <%= f.text_field :location %>
+  </div>
+  <div>
+    <% if current_user.admin? %>
+      <%= f.label :manager_id, "Assign Manager" %>
+      <%= f.collection_select :manager_id, User.where(role: 'manager'), :id, :email, prompt: "Select a Manager" %>
+    <% end %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

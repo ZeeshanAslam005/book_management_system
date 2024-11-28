@@ -1,29 +1,4 @@
 <h1>Edit Book</h1>
-
-<%= form_for @book do |f| %>
-  <div>
-    <%= f.label :title, "Title" %>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.label :author, "Author" %>
-    <%= f.text_field :author %>
-  </div>
-  <div>
-    <%= f.label :price, "Price" %>
-    <%= f.number_field :price, step: 0.01 %>
-  </div>
-  <div>
-    <%= f.label :bookstore_id, "Bookstore" %>
-    <%= f.collection_select :bookstore_id, Bookstore.all, :id, :name, prompt: "Select a Bookstore" %>
-  </div>
-  <div>
-    <%= f.label :published_date, "Published Date" %>
-    <%= f.date_select :published_date %>
-  </div>
-  <div>
-    <%= f.submit "Update Book", class: "btn btn-primary" %>
-  </div>
-<% end %>
+<%= render 'form', book: @book %>
 
 <%= link_to 'Back to Books', books_path, class: 'btn btn-secondary' %>
