@@ -1,26 +1,12 @@
 module API
   module V1
-    class BookStore < Grape::API
-      before { current_user } # Ensures authentication
-
-      resource :bookstores do
-        desc 'Get all bookstores'
-        get do
-          bookstores = ::Bookstore.all
-          bookstores.map do |bookstore|
-            {
-              id: bookstore.id,
-              name: bookstore.name,
-              location: bookstore.location,
-              books_count: bookstore.books.count
-            }
-          end
-        end
-
+    module BookStores
+      class Show < Grape::API
         desc 'Get a single bookstore'
         params do
           requires :id, type: Integer, desc: 'Bookstore ID'
         end
+        
         get ':id' do
           bookstore = ::Bookstore.find(params[:id])
           {
