@@ -1,35 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bookstore Management</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  
+  <!-- Stylesheets -->
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  
+  <!-- JavaScript Libraries -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js' %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/chartkick@5.0.1/dist/chartkick.min.js' %>
-
+  
+  <!-- CSRF Protection -->
   <%= csrf_meta_tags %>
 </head>
 
 <body>
-  <nav>
-    <% if user_signed_in? %>
-      <p>Welcome, <%= current_user.email %></p>
-      <% if current_user.admin? %>
-        <a href="<%= admin_dashboard_index_path %>">Admin Dashboard</a>
-      <% elsif current_user.manager? %>
-        <a href="<%= manager_dashboard_index_path %>">Manager Dashboard</a>
-      <% elsif current_user.customer? %>
-        <a href="<%= customer_dashboard_index_path %>">Customer Dashboard</a>
+  <header>
+    <nav>
+      <% if user_signed_in? %>
+        <p>Welcome, <%= current_user.email %></p>
+        
+        <!-- Dashboard Navigation -->
+        <% if current_user.admin? %>
+          <a href="<%= admin_dashboard_index_path %>">Admin Dashboard</a>
+        <% elsif current_user.manager? %>
+          <a href="<%= manager_dashboard_index_path %>">Manager Dashboard</a>
+        <% elsif current_user.customer? %>
+          <a href="<%= customer_dashboard_index_path %>">Customer Dashboard</a>
+        <% end %>
+        
+        <!-- Main Navigation Links -->
+        <ul>
+          <li><%= link_to 'Books', books_path %></li>
+          <% unless current_user.customer? %>
+            <li><%= link_to 'Bookstores', bookstores_path %></li>
+          <% end %>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        </ul>
+      <% else %>
+        <!-- If the user is not signed in, show login link -->
+        <ul>
+          <li><%= link_to 'Login', new_user_session_path %></li>
+        </ul>
       <% end %>
-      <ul>
-        <li><%= link_to 'Books', books_path %></li>
-        <% unless current_user.customer? %>
-          <li><%= link_to 'Bookstores', bookstores_path %></li>
-        <%end%>
-        <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
-      </ul>
-    <% end %>
-  </nav>
-  <%= yield %>
+    </nav>
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <%= yield %>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <%= Time.now.year %> Bookstore Management. All rights reserved.</p>
+  </footer>
 </body>
 </html>
