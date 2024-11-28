@@ -23,7 +23,9 @@
       <% end %>
       <ul>
         <li><%= link_to 'Books', books_path %></li>
-        <li><%= link_to 'Bookstores', bookstores_path %></li>
+        <% unless current_user.customer? %>
+          <li><%= link_to 'Bookstores', bookstores_path %></li>
+        <%end%>
         <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
       </ul>
     <% end %>
