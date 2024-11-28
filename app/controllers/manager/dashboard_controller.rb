@@ -3,8 +3,8 @@ class Manager::DashboardController < ApplicationController
   before_action :verify_manager
 
   def index
-    @bookstores = Bookstore.where(manager_id: current_user.id)
-    @total_sales = @bookstores.joins(:orders).sum('orders.total_price')
+    @bookstores = Bookstore.managed_by(current_user)
+    @total_sales = @bookstores.total_sales
   end
 
   private
