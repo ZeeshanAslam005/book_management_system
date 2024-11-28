@@ -1,9 +1,8 @@
 <h1>Manager Dashboard</h1>
 <h2>Your Bookstores</h2>
-<% @bookstores.each do |bookstore| %>
-  <div>
-    <h3><%= bookstore.name %></h3>
-    <p>Location: <%= bookstore.location %></p>
-  </div>
-<% end %>
+<ul>
+  <% @bookstores.each do |bookstore| %>
+    <li><%= bookstore.name %> (Location: <%= bookstore.location %>)</li>
+  <% end %>
+</ul>
 <p>Total Sales: <%= number_to_currency(@total_sales) %></p>

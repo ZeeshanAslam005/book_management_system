@@ -3,7 +3,7 @@ class Customer::DashboardController < ApplicationController
   before_action :verify_customer
 
   def index
-    @orders = current_user.orders.includes(:books)
+    @orders = current_user.orders.includes(:book)
   end
 
   private

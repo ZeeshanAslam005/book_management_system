@@ -6,9 +6,7 @@
     <p>Date: <%= order.created_at.strftime('%B %d, %Y') %></p>
     <p>Total Price: <%= number_to_currency(order.total_price) %></p>
     <ul>
-      <% order.books.each do |book| %>
-        <li><%= book.title %> by <%= book.author %></li>
-      <% end %>
+      <li><%= order.book.title %> by <%= order.book.author %></li>
     </ul>
   </div>
 <% end %>
