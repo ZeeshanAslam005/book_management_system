@@ -1,7 +1,7 @@
 <h1>Books</h1>
 
-<% if current_user.customer? %>
-  <p>You can only see books you’ve purchased.</p>
+<% if current_user.admin? || current_user.manager? %>
+  <%= link_to 'Add New Book', new_book_path, class: 'btn btn-primary' %>
 <% end %>
 
 <%= search_form_for @q, url: books_path, method: :get do |f| %>
@@ -40,6 +40,7 @@
       <th>Price</th>
       <% if current_user&.admin? || current_user&.manager? %>
         <th>Bookstore</th>
+        <th>Actions</th>
       <% end %>
     </tr>
   </thead>
@@ -51,6 +52,10 @@
         <td><%= number_to_currency(book.price) %></td>
         <% if current_user&.admin? || current_user&.manager? %>
           <td><%= book.bookstore&.name %></td>
+          <td>
+            <%= link_to 'Edit', edit_book_path(book), class: 'btn btn-secondary' %>
+            <%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          </td>
         <% end %>
       </tr>
     <% end %>

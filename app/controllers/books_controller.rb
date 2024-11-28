@@ -17,8 +17,10 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    if @book.save
-      redirect_to @book, notice: 'Book created successfully.'
+    if !current_user.managed_bookstores.exists?(@book.bookstore_id)
+      redirect_to books_path, alert: "You can only add books to your assigned bookstores."
+    elsif @book.save
+      redirect_to books_path, notice: 'Book was successfully created.'
     else
       render :new
     end
@@ -46,7 +48,13 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :author, :price, :bookstore_id, :manager_id)
+    params.require(:book).permit(:title, :author, :price, :bookstore_id, :manager_id, :published_date)
+  end
+
+  def authorize_book_creation
+    unless current_user.admin? || current_user.manager?
+      redirect_to books_path, alert: 'You are not authorized to create books.'
+    end
   end
 
   def verify_admin_or_manager

@@ -1,6 +1,6 @@
 <h1>Edit Bookstore</h1>
 
-<%= form_with(model: @bookstore, local: true) do |f| %>
+<%= form_for @bookstore do |f| %>
   <div>
     <%= f.label :name, "Name" %>
     <%= f.text_field :name %>

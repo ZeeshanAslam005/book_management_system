@@ -1,6 +1,6 @@
 <h1>Add New Book</h1>
 
-<%= form_with(model: @book, local: true) do |f| %>
+<%= form_for @book do |f| %>
   <div>
     <%= f.label :title, "Title" %>
     <%= f.text_field :title %>
@@ -15,7 +15,11 @@
   </div>
   <div>
     <%= f.label :bookstore_id, "Bookstore" %>
-    <%= f.collection_select :bookstore_id, Bookstore.all, :id, :name, prompt: "Select a Bookstore" %>
+    <% if current_user.admin? %>
+      <%= f.collection_select :bookstore_id, Bookstore.all, :id, :name, prompt: "Select a Bookstore" %>
+    <% elsif current_user.manager? %>
+      <%= f.collection_select :bookstore_id, current_user.managed_bookstores, :id, :name, prompt: "Select a Bookstore" %>
+    <% end %>
   </div>
   <div>
     <%= f.label :published_date, "Published Date" %>

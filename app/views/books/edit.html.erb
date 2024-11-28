@@ -1,6 +1,6 @@
 <h1>Edit Book</h1>
 
-<%= form_with(model: @book, local: true) do |f| %>
+<%= form_for @book do |f| %>
   <div>
     <%= f.label :title, "Title" %>
     <%= f.text_field :title %>

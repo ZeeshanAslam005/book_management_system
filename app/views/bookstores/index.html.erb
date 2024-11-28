@@ -1,44 +1,49 @@
-<% if current_user.customer? %>
-  <script>window.location.href = "<%= root_path %>"</script>
-<% else %>
-  <h1>Bookstores</h1>
+<h1>Bookstores</h1>
 
-  <%= search_form_for @q, url: bookstores_path, method: :get do |f| %>
-    <div>
-      <%= f.label :name_cont, "Name Contains" %>
-      <%= f.text_field :name_cont, placeholder: "Search by Name" %>
-    </div>
-    <div>
-      <%= f.label :location_cont, "Location Contains" %>
-      <%= f.text_field :location_cont, placeholder: "Search by Location" %>
-    </div>
-    <div>
-      <%= f.submit "Search", class: "btn btn-primary" %>
-    </div>
-  <% end %>
+<% if current_user.admin? %>
+  <%= link_to 'Add New Bookstore', new_bookstore_path, class: 'btn btn-primary' %>
+<% end %>
 
-  <table>
-    <thead>
+<%= search_form_for @q, url: bookstores_path, method: :get do |f| %>
+  <div>
+    <%= f.label :name_cont, "Name Contains" %>
+    <%= f.text_field :name_cont, placeholder: "Search by Name" %>
+  </div>
+  <div>
+    <%= f.label :location_cont, "Location Contains" %>
+    <%= f.text_field :location_cont, placeholder: "Search by Location" %>
+  </div>
+  <div>
+    <%= f.submit "Search", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <% if current_user&.admin? %>
+        <th>Manager</th>
+        <th>Actions</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookstores.each do |bookstore| %>
       <tr>
-        <th>Name</th>
-        <th>Location</th>
+        <td><%= bookstore.name %></td>
+        <td><%= bookstore.location %></td>
         <% if current_user&.admin? %>
-          <th>Manager</th>
+          <td><%= bookstore.manager&.email %></td>
+          <td>
+            <%= link_to 'Edit', edit_bookstore_path(bookstore), class: 'btn btn-secondary' %>
+            <%= link_to 'Delete', bookstore, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          </td>
         <% end %>
       </tr>
-    </thead>
-    <tbody>
-      <% @bookstores.each do |bookstore| %>
-        <tr>
-          <td><%= bookstore.name %></td>
-          <td><%= bookstore.location %></td>
-          <% if current_user&.admin? %>
-            <td><%= bookstore.manager&.email %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>
 
-  <%= paginate @bookstores %>
-<% end %>
+<%= paginate @bookstores %>
