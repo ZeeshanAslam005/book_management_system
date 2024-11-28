@@ -3,21 +3,12 @@ class Admin::DashboardController < ApplicationController
   before_action :verify_admin
 
   def index
-    @total_bookstores = Bookstore.count
-    @total_books = Book.count
-    @total_revenue = Order.sum(:total_price)
-
-    @monthly_revenue = Order.select("DATE_TRUNC('month', created_at) AS month, SUM(total_price) AS total_revenue")
-                          .group("DATE_TRUNC('month', created_at)")
-                          .order("month ASC")
-                          .map { |record| [record.month.strftime("%B %Y"), record.total_revenue] }
-                          .to_h
-
-    @best_performing_bookstores = Bookstore.joins(:orders)
-                                           .group('bookstores.id', 'bookstores.name')
-                                           .sum('orders.total_price')
-                                           .sort_by { |_id, revenue| -revenue }
-                                           .first(5)
+    dashboard = DashboardService.new
+    @total_bookstores = dashboard.total_bookstores
+    @total_books = dashboard.total_books
+    @total_revenue = dashboard.total_revenue
+    @monthly_revenue = dashboard.monthly_revenue
+    @best_performing_bookstores = dashboard.best_performing_bookstores
   end
 
   private
