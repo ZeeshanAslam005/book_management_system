@@ -3,7 +3,7 @@ class Manager::DashboardController < ApplicationController
   before_action :verify_manager
 
   def index
-    @bookstores = Bookstore.managed_by(current_user)
+    @bookstores = policy_scope(Bookstore)
     @total_sales = @bookstores.total_sales
   end
 

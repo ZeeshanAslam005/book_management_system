@@ -9,6 +9,12 @@
     <%= f.label :author_cont, "Author Contains" %>
     <%= f.text_field :author_cont, placeholder: "Search by Author" %>
   </div>
+  <% if current_user&.admin? || current_user&.manager? %>
+    <div>
+      <%= f.label :bookstore_name_cont, "Bookstore Contains" %>
+      <%= f.text_field :bookstore_name_cont, placeholder: "Search by Bookstore" %>
+    </div>
+  <% end %>
   <div>
     <%= f.label :price_gteq, "Minimum Price" %>
     <%= f.number_field :price_gteq, step: 0.01 %>
@@ -28,7 +34,9 @@
       <th>Title</th>
       <th>Author</th>
       <th>Price</th>
-      <th>Bookstore</th>
+      <% if current_user&.admin? || current_user&.manager? %>
+        <th>Bookstore</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -37,7 +45,9 @@
         <td><%= book.title %></td>
         <td><%= book.author %></td>
         <td><%= number_to_currency(book.price) %></td>
-        <td><%= book.bookstore&.name %></td>
+        <% if current_user&.admin? || current_user&.manager? %>
+          <td><%= book.bookstore&.name %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

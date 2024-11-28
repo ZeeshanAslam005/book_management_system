@@ -19,6 +19,9 @@
     <tr>
       <th>Name</th>
       <th>Location</th>
+      <% if current_user&.admin? %>
+        <th>Manager</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +29,9 @@
       <tr>
         <td><%= bookstore.name %></td>
         <td><%= bookstore.location %></td>
+        <% if current_user&.admin? %>
+          <td><%= bookstore.manager&.email %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

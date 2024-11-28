@@ -18,4 +18,16 @@ class BookstorePolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      elsif user.manager?
+        scope.where(manager_id: user.id)
+      else
+        scope.none
+      end
+    end
+  end
 end
