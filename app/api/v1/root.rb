@@ -11,6 +11,13 @@ module API
       format :json
       prefix :v1
 
+      helpers Pundit
+
+      # Rescue ActiveRecord::RecordNotFound globally for this endpoint
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        error!({ error: 'not found', message: e.message }, 404)
+      end
+      
       helpers do
         def current_user
           auth_header = headers['Authorization']
@@ -19,6 +26,18 @@ module API
           User.find(payload['sub'])
         rescue StandardError
           error!({ error: 'Unauthorized access' }, 401)
+        end
+
+        def authorize!(record, query)
+          policy = Pundit.policy(current_user, record)
+          unless policy.public_send(query)
+            error!('403 Forbidden: You are not authorized to perform this action', 403)
+          end
+        end
+
+        # Policy scope implementation for Grape
+        def policy_scope(scope)
+          Pundit.policy_scope!(current_user, scope)
         end
       end
 

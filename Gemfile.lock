@@ -147,7 +147,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    pundit (2.4.0)
+    pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.13)
     rack-accept (0.4.5)
@@ -291,7 +291,7 @@ DEPENDENCIES
   loofah (= 2.9.0)
   nokogiri (< 1.11.0)
   pg (~> 0.15)
-  pundit
+  pundit (~> 1.1)
   rack-cors (~> 0.4.0)
   rails (= 4.2.11.3)
   ransack (~> 1.8.2)

@@ -2,6 +2,8 @@ module API
   module V1
     module BookStores
       class Show < Grape::API
+        before { authorize!(::Bookstore, :show?) }
+
         desc 'Get a single bookstore'
         params do
           requires :id, type: Integer, desc: 'Bookstore ID'
@@ -9,6 +11,8 @@ module API
         
         get ':id' do
           bookstore = ::Bookstore.find(params[:id])
+          authorize!(bookstore, :show?)
+          
           {
             id: bookstore.id,
             name: bookstore.name,

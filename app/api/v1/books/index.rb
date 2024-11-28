@@ -2,11 +2,12 @@ module API
   module V1
     module Books
       class Index < Grape::API
-        before { current_user }
+        before { authorize!(::Book, :index?) }
 
         desc 'Get all books'
         get do
-          ::Book.all.map do |book|
+          books = policy_scope(::Book)
+          books.map do |book|
             {
               id: book.id,
               title: book.title,

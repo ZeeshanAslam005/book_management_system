@@ -2,7 +2,7 @@ module API
   module V1
     module Books
       class Show < Grape::API
-        before { current_user }
+        before { authorize!(::Book, :show?) }
 
         desc 'Get a single book'
         params do
@@ -10,6 +10,8 @@ module API
         end
         get ':id' do
           book = ::Book.find(params[:id])
+          authorize!(book, :show?)
+
           {
             id: book.id,
             title: book.title,

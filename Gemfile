@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'loofah', '2.9.0'          # Last version compatible with older Ruby versions
 gem 'nokogiri', '< 1.11.0'     # Use Nokogiri versions prior to 1.11
 gem 'devise'
-gem 'pundit'
+gem 'pundit', '~> 1.1'
 gem 'devise-jwt'
 gem 'audited'
 gem 'dotenv-rails'
