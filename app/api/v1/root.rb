@@ -23,6 +23,9 @@ module API
           auth_header = headers['Authorization']
           token = auth_header&.split(' ')&.last
           payload = Warden::JWTAuth::TokenDecoder.new.call(token)
+          if JwtDenylist.find_by(jti: payload['jti'])
+            error!({ error: 'Token has been revoked. Please log in again.' }, 401)
+          end
           User.find(payload['sub'])
         rescue StandardError
           error!({ error: 'Unauthorized access' }, 401)
