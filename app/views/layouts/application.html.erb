@@ -43,6 +43,7 @@
           <!-- Admin: Add New Bookstore -->
           <% if current_user.admin? %>
             <li><%= link_to 'Add New Bookstore', new_bookstore_path %></li>
+            <li><%= link_to 'Manage Managers', admin_managers_path %></li>
           <% end %>
 
           <!-- Admin and Manager: Add New Book -->

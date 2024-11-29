@@ -9,9 +9,21 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
+  scope :managers, -> { where(role: 'manager') }
+  scope :admins, -> { where(role: 'admin') }
+  scope :customers, -> { where(role: 'customer') }
   ROLES = %w[admin manager customer].freeze
 
   validates :role, inclusion: { in: ROLES }
+  validates :email, presence: true, uniqueness: true
+
+  def bookstore_ids
+    managed_bookstores.pluck(:id)
+  end
+
+  def bookstore_ids=(ids)
+    self.managed_bookstores = Bookstore.where(id: ids.reject(&:blank?))
+  end
 
   def admin?
     role == 'admin'
