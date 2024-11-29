@@ -12,7 +12,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js' %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/chartkick@5.0.1/dist/chartkick.min.js' %>
-  
+  <%= yield :inline_scripts if content_for?(:inline_scripts) %>
   <!-- CSRF Protection -->
   <%= csrf_meta_tags %>
 </head>
@@ -43,7 +43,7 @@
           <!-- Admin: Add New Bookstore -->
           <% if current_user.admin? %>
             <li><%= link_to 'Add New Bookstore', new_bookstore_path %></li>
-            <li><%= link_to 'Manage Managers', admin_managers_path %></li>
+            <li><%= link_to 'Manage Users', admin_users_path %></li>
           <% end %>
 
           <!-- Admin and Manager: Add New Book -->

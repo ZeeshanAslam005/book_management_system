@@ -1,0 +1,37 @@
+<h1>Manage Users</h1>
+
+<%= link_to 'Add User', new_admin_user_path, class: 'btn btn-primary' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Assigned Bookstores</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.role.capitalize %></td>
+        <td>
+          <% if user.manager? && user.managed_bookstores.any? %>
+            <ul>
+              <% user.managed_bookstores.each do |bookstore| %>
+                <li><%= bookstore.name %></li>
+              <% end %>
+            </ul>
+          <% elsif user.manager? %>
+            None
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_admin_user_path(user), class: 'btn btn-secondary' %>
+          <%= link_to 'Delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

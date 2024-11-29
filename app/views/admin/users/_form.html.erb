@@ -1,0 +1,60 @@
+<% content_for :inline_scripts do %>
+<script>
+  function toggleBookstoreCheckboxes(role) {
+    const section = document.getElementById("bookstores-section");
+    if (role === "manager") {
+      section.style.display = "block";
+    } else {
+      section.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const roleSelect = document.querySelector('select[name="user[role]"]');
+    toggleBookstoreCheckboxes(roleSelect.value);
+    roleSelect.addEventListener('change', function () {
+      toggleBookstoreCheckboxes(this.value);
+    });
+  });
+</script>
+<% end %>
+
+<%= form_for(@user, url: @user.new_record? ? admin_users_path : admin_user_path(@user), method: @user.new_record? ? :post : :patch) do |f| %>
+  <div>
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email %>
+  </div>
+
+  <% if @user.new_record? %>
+    <div>
+      <%= f.label :password, "Password" %>
+      <%= f.password_field :password %>
+    </div>
+    <div>
+      <%= f.label :password_confirmation, "Password Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :role, "Role" %>
+    <%= f.select :role, User::ROLES.reject { |role| role == 'admin' }, { prompt: "Select a Role" }, class: "form-control", onchange: "toggleBookstoreCheckboxes(this.value)" %>
+  </div>
+
+  <% if @user.manager? || @user.new_record? %>
+    <div id="bookstores-section">
+      <%= f.label :assign_bookstores, "Assign Bookstores" %>
+      <%= f.collection_check_boxes :bookstore_ids, Bookstore.all, :id, :name do |b| %>
+        <div>
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to 'Cancel', admin_users_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

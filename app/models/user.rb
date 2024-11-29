@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   scope :managers, -> { where(role: 'manager') }
   scope :admins, -> { where(role: 'admin') }
   scope :customers, -> { where(role: 'customer') }
+  scope :managers_and_customers, -> { where(role: %w[manager customer]) }
+  scope :with_managed_bookstores, -> { includes(:managed_bookstores) }
+  
   ROLES = %w[admin manager customer].freeze
 
   validates :role, inclusion: { in: ROLES }
