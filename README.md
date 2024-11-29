@@ -95,6 +95,7 @@ Visit: [http://localhost:3000](http://localhost:3000)
 - Built with **Grape** for RESTful design on top of Rack.
 - Exposes bookstore and book endpoints.
 - Secured with JWT-based authentication.
+- Enforces role-based policies, ensuring managers access permitted data and customers retrieve their own authorized information.
 
 ### **Swagger Documentation**
 - Swagger documentation for API endpoints is auto-generated.  
