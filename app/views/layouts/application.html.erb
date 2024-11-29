@@ -57,6 +57,15 @@
     </nav>
   </header>
 
+  <!-- Flash & Error Messages -->
+<div id="flash-messages">
+  <% flash.each do |key, message| %>
+    <div class="alert <%= bootstrap_class_for_flash(key) %>">
+      <%= message %>
+    </div>
+  <% end %>
+</div>
+
   <!-- Main Content Section -->
   <main>
     <%= yield %>

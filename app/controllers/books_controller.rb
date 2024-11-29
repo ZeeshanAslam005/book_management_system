@@ -17,7 +17,7 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    if !current_user.managed_bookstores.exists?(@book.bookstore_id)
+    if current_user.manager? && !current_user.managed_bookstores.exists?(@book.bookstore_id)
       redirect_to books_path, alert: "You can only add books to your assigned bookstores."
     elsif @book.save
       redirect_to books_path, notice: 'Book was successfully created.'

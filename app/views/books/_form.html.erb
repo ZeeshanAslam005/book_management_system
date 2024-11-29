@@ -1,3 +1,5 @@
+<%= render 'shared/error_messages', object: @book %>
+
 
 <%= form_for @book do |f| %>
   <div>
@@ -14,7 +16,9 @@
   </div>
   <div>
     <%= f.label :bookstore_id, "Bookstore" %>
-    <%= f.collection_select :bookstore_id, Bookstore.all, :id, :name, prompt: "Select a Bookstore" %>
+    <%= f.collection_select :bookstore_id, 
+        current_user.admin? ? Bookstore.all : current_user.managed_bookstores, 
+        :id, :name, prompt: "Select a Bookstore" %>
   </div>
   <div>
     <%= f.label :published_date, "Published Date" %>
