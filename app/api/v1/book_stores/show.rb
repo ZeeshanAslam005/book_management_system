@@ -2,7 +2,6 @@ module API
   module V1
     module BookStores
       class Show < Grape::API
-        before { authorize!(::Bookstore, :show?) }
 
         desc 'Get a single bookstore'
         params do
